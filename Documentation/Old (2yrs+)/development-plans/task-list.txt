@@ -1,0 +1,30 @@
+5-14-17
+
+Estimated Completion Deadlines:
+Date:     Implementation:
+Oct. 10 = 25%
+Oct. 25 = 50%
+Nov. 7  = 70%
+Nov. 21 = 85%
+Jan. 30 = 100%
+
+2 Hour Task List:
+- Buoy:
+  - Hook up sensors to buoy
+  - Record data from sensors
+  - Update log files / Figure out conversions
+  - Modify bluetooth transfer code for buoy for new sensors
+  - Set up groups / authorized user sign-in capabilities
+- App:
+  - Modify bluetooth reception from buoy for new sensors
+  - Modify database for new sensor fields
+  - Add authorized user functionality
+  - Add in user interface for add authorized user
+  - Add in user interface for becoming authorized user
+  - Add in cybersecurity visualization stuff...
+  - Modify code for transfer to web database
+  - Add in sign-in or data encryption visualization
+- Website:
+  - Modify transfer code for new sensors
+  - Modify database for storage with new sensors
+  - Add visualization? (not really sure about level of user interaction by campers)

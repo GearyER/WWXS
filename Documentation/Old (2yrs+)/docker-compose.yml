@@ -1,0 +1,44 @@
+version: "3"
+services:
+  db:
+    image: postgres:12.2
+    volumes:
+      - $HOME/db:/var/lib/postgresql/data
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=wwxs
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=wwxs
+      - PGDATA=/var/lib/postgresql/data
+    restart: always
+  api:
+    image: wwxs-api
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE=wwxs
+      - DATABASE_USER=wwxs
+      - DATABASE_PASSWORD=password
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - PORT=8080
+      - API_SECRET=secret
+    restart: always
+  ui:
+    image: wwxs-ui
+    networks:
+      - frontend
+    ports:
+      - "80:80"
+    restart: always
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
