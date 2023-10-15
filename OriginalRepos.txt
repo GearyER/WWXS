@@ -1,0 +1,13 @@
+This is a list of links to the original separate repositories for the purpose of retaining the commit history that was lost when merging into one repo.
+
+WWX_BUOY
+https://gitlab.cs.wwu.edu/gearye2/buoy-fall-2022
+
+web-api
+https://gitlab.cs.wwu.edu/gearye2/web-api
+
+web-ui
+https://gitlab.cs.wwu.edu/gearye2/web-ui
+
+documentation
+https://gitlab.cs.wwu.edu/gearye2/documentation#water-weather-station-documentation

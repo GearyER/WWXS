@@ -12,7 +12,7 @@ The website displays all the collected data from the various buoys. The data can
 Files such as SDS (Software Design Specification) and Vision and Scope documents are PDF files submitted to Western Washington University. These should be uploaded once and not edited as they are atomic milestones to the project. Further changes should uploaded as a new file.
 
 ### Upload Instructions
-1. Title document in the format <year><quarter>.pdf where the year and quarter are replaced witht he year and quarter the document was submitted /(i.e. 2023Spring.pdf)
+1. Title document in the format /<year/>/<quarter/>.pdf where the year and quarter are replaced witht he year and quarter the document was submitted /(i.e. 2023Spring.pdf)
 2. Place the document in the corresponding folder (ex. Documentation/SDS)
 3. If the documentation does not fit into any of the existing categories, name your document as standard (ex. BuoySetupDoc.pdf) and place into the Documentation folder
 
