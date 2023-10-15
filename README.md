@@ -49,9 +49,9 @@ Western Washington University's Computer Science department, the SEA Discovery C
 
 For current contributors, please:
 * Create a new branch when working on any updates to the code to avoid merge conflicts or breaking anything.
-    > git branch [branch name] //create new branch
-    > git checkout [branch name] //change your working branch to the new one you created
-    > git branch //see current existing branches and which one you are currently working from
+    \> git branch [branch name] //create new branch.
+    \> git checkout [branch name] //change your working branch to the new one you created.
+    \> git branch //see current existing branches and which one you are currently working from.
     **Please only create new branches from the main branch**
 
 ## License
