@@ -1,0 +1,31 @@
+.default-margin {
+    margin: 1em;
+  }
+  .profile{
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 100;
+    font-size: 1.1em;
+    border-radius: 1em;
+  }
+  .profile h1 {
+    font-size: 1.5em;
+    font-weight: 200;
+  }
+    .profile h3 {
+        font-size: 1.2em;
+        font-weight: 200;
+    }
+    .profile h4 {
+        font-size: 1.1em;
+        font-weight: 200;
+    }
+  .profile input {
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .login-body {
+    margin: 2,2,2,2;
+  }

@@ -1,0 +1,39 @@
+.default-margin {
+  margin: 1em;
+}
+.register{
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 100;
+  font-size: 1.1em;
+  border-radius: 1em;
+}
+.register h1 {
+  font-size: 1.5em;
+  font-weight: 200;
+}
+.register input {
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.register-body {
+  margin: 2,2,2,2;
+}
+.error {
+  color: red;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+}
+.register-link {
+  margin-top: 2rem;
+}
+.btn {
+  background-color:  #007AC8;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.btn:hover {
+  background-color: #52addd;
+}

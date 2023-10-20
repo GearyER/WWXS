@@ -1,0 +1,60 @@
+<!--create js for toggle data to hide and show buoy and member divs-->
+
+
+<!--create a toggle button to switch between data divs-->
+<div class="row justify-content-center">
+  <!--
+    TODO
+  <div class="col-auto">
+    <button type="button" class="btn btn-primary" (click)="toggleTables()">Toggle Data</button>
+  </div>
+  -->
+  <div class="data" id="buoy">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <h1 style="margin-bottom: 1em;">Associated Buoys</h1>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg">
+        <table class="table table-light table-hover table-striped table-bordered" style="width: 75%;">
+          <thead>
+            <tr>
+              <th scope="col">Buoy Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let buoy of buoys">
+              <td *ngIf="buoy.group.name == user.group.name">{{buoy.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!--create another  data div for members of group-->
+  <!--TODO properly grab memebers of users group-->
+  <div class="data" id="member" style="display:none;">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <h1 style="margin-bottom: 1em;">Members</h1>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg">
+        <table class="table table-light table-hover table-striped table-bordered" style="width: 75%;">
+          <thead>
+            <tr>
+              <th scope="col">Member</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{user.username}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

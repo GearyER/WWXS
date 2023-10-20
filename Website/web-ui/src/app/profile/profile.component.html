@@ -1,0 +1,15 @@
+<div class="row justify-content-center">
+  <div class="col-3 profile" style="background-color: white; margin-top: 2em; margin-bottom: 2em;">
+    <div class="default-margin">
+      <h1 class="profile">User Profile</h1>
+      <!--add horizontal break-->
+      <hr>
+
+      <h3>Username: {{auth.getUserData().user.username}}</h3>
+      <h4>{{auth.getUserData().email}}</h4>
+      <h4 *ngIf="user.admin">Admin</h4>
+      <h4 *ngIf="!user.group">You are not in a group.</h4>
+      <h4 *ngIf="user.group">Group: {{user.group.name}}</h4>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.data {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+.table {
+    margin: auto;
+    width: 75% !important; 
+ }
+ h1 {
+    text-align: center;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 100;
+    font-size: 1.5em;
+    color: #FFF;
+ }

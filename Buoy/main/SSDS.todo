@@ -1,0 +1,8 @@
+  ☐ Document and finalize state machine(s)
+  ☐ Deep sleep timer (don't interfere with BLE connections - maybe we need a button? maybe we should only use light sleep?)
+  ☐ Reset storage only when necessary (i.e, after data is sent, not on boot)
+  ☐ Sensor calibration
+  ☐ Code cleanup
+    ☐ Possibly remove BLE callbacks. They're all set to a known method at boot and never changed, inlining them would be functionally identical but make for a less confusing code layout. This would also mean that nothing outside of ssds_bluetooth needs to know about ssds_bluetooth's state, so we could make some global variables private.  Much cleaner.
+    ☐ Possibly take encryption out of its own thread. We don't seem to handle enough data to make it necessary, so it's extra complexity without much benefit. ENTIRELY possible it does help in some way though, so we should experiment with removing it and see if it breaks anything or makes things worse.
+    ☐ Move wait for BLE initialization to complete into the actual BLE initialization method? As it is now, ssds_bluetooth's internal state is exposed to the world for the sole purpose of allowing main to sit idle until it notices initialization is complete after requesting initialization. There may be some reason for this, but it seems to me right now that just moving the wait into the initialization request would be a lot cleaner.

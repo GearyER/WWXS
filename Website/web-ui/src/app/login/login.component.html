@@ -1,0 +1,26 @@
+<div class="row justify-content-center">
+    <div class="col-3 login" style="background-color: white; margin-top: 2em; margin-bottom: 2em;">
+    <div class="default-margin">
+    <h1 class="login text-center">Sign In</h1>
+    <hr>
+    <div class="error">
+    </div>
+    <!--sr-only class provides form labels for screen readers-->
+        <form>
+            <div class="login-body">
+            <div class="form-group">
+                <label for="email" class="sr-only">E-Mail</label>
+                <input type="text" formControlName="email" class="form-control" placeholder="E-Mail" #email required autofocus>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="password">Password</label>
+                <input type="password" formControlName="password" class="form-control" placeholder="Password" #password required>
+            </div>
+            </div>
+            <button class="btn btn-primary" type="submit" (click)="authService.SignIn(email.value, password.value)">Log In</button>
+        </form>
+      
+      <p class="register-link">Don't have an account? <a routerLink="/register">Register <i class="fas fa-external-link-alt"></i></a></p>
+      </div>
+</div>
+</div>

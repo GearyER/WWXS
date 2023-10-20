@@ -1,0 +1,17 @@
+{
+  "name": "cucumber",
+  "version": "1.0.0",
+  "description": "water",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "water"
+  ],
+  "author": "Bryan & Caleb",
+  "license": "ISC",
+  "dependencies": {
+    "@cucumber/cucumber": "^8.2.2"
+  }
+}

@@ -1,0 +1,27 @@
+<div class="data">
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <h1 style="margin-bottom: 1em;">Active Buoys</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-lg">
+<table class="table table-light table-hover table-striped table-bordered" style="width: 75%;">
+  <thead>
+    <tr>
+      <th scope="col">Buoy Name</th>
+      <th scope="col">Last Data Submitted</th>
+      <th scope="col">Group</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let buoy of buoys">
+      <td>{{buoy.name}}</td>
+      <td>{{buoy.lastRetrieval}}</td>
+      <td><span *ngIf="buoy.group">{{buoy.group.name}}</span></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </div>
+</div>

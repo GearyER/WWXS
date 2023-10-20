@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700');
+.navbar {
+    background-color: #007AC8;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 100;
+    font-size: 1.1em;
+}
+.navbar-brand {
+    color: #fff;
+}
+.navbar-brand:hover {
+    color: #fff;
+}
+.navbar-nav li a {
+    color: #fff;
+}
+.nav-item a:hover{
+    background-color: #52addd;
+}
+.dropdown-item {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 100;
+    font-size: 1.1em;
+}
+.dropdown-item:hover{
+    background-color: #52addd;
+}
+/* Dropdown color transparent */
+
+.dropdown-toggle {
+    background-color: transparent;
+}
+/*make sure dropdown items are not cut off */
+.dropdown {
+    position: static !important;
+}

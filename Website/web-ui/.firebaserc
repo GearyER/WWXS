@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "weatherstation-67a03": {
+      "hosting": {
+        "wwxsUI": [
+          "weatherstation-67a03"
+        ]
+      }
+    }
+  }
+}

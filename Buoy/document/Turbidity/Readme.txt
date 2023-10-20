@@ -1,0 +1,1 @@
+PLEASE NOTE THAT THE TWO PDF TURBIDITY DATASHEET ARE DIFFERENTTurbidity-Sensor-Datasheet.pdf is for TSW-10 Turbidity sensorTurbidity_Datasheet_TSD-10.pdf is for TSD-10 Turbidity sensorThe one we are using in the TSD-10 turbidity sensor but the pictures/graphs in the pdf is not clear, so I also provide a similar model turbidity sensor with better quantity pdf. 

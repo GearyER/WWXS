@@ -1,0 +1,27 @@
+<div class="container -mt 5">
+   <select class="form-select" (change)='onChartSelect($event)' aria-label="Default select example">
+      <option *ngFor="let n of charts">{{ n }}</option>
+   </select>
+   <select class="form-select" (change)='onDataTypeSelect($event)' aria-label="Default select example">
+      <option *ngFor="let n of dataTypes">{{ n }}</option>
+   </select>
+   <ng-multiselect-dropdown
+      [placeholder]="'Select Location(s)'"
+      [settings]="dropdownSettings"
+      [data]="dropdownList"
+      [(ngModel)]="selected_items"
+      (onSelect)="onBuoySelect($event)"
+      (onSelectAll)="onBuoySelectAll($event)"
+      (onDeSelect)="onBuoyDeSelect($event)"
+      (onDeSelectAll)="onBuoyDeSelectAll($event)">
+   </ng-multiselect-dropdown>
+   <google-chart id="googleChart" #chart
+         [title]="title"
+         [type]="type"
+         [data]="data"
+         [columns]="column_names"
+         [options]="options"
+         [width]="width"
+         [height]="height">
+   </google-chart>
+</div>

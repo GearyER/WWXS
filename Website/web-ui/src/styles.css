@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+/* add background color thats 4.5:1 contrast to  007AC8*/
+
+body {
+    background-color: #00326c;
+}
+.multiselect-dropdown .dropdown-btn {
+    background-color: #fff;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 100;
+    font-size: 1.1em;
+    border: 1px solid #adadad;
+    width: 100%;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.1;
+    text-align: left;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border-radius: 4px;
+}
