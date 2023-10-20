@@ -24,7 +24,7 @@ Contains the codebase for the SparkFun ESP32 Thing.
 
 ### Development Environment
 The guide for setting up the environment needed to compile the code and flash it to the ESP32 board is found [here](https://docs.espressif.com/projects/esp-idf/en/v4.2.1/esp32/get-started/index.html).
-Dedicated installation instructions found [here](Buoy/buoy-fall-2022/INSTALL.md).
+Dedicated installation instructions found [here](Buoy/INSTALL.md).
 
 ### Building the Buoy
 In-depth instructions, information, and guides involving the creation of the buoy and its integral parts can be found in the section titled "Buoy" in this document:
