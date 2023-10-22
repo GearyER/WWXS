@@ -39,8 +39,13 @@ WORK IN PROGRESS
 
 ## Website
 WORK IN PROGRESS
+
+### Documentation
+Servers as our website documentation - contains docker information for pushing our website. For further documentation, please check out our [Website/documentation](https://github.com/GearyER/WWXS/tree/main/Website/documentation).
+
 ### Web-API
 Servers as our backend - updating, creating, and accessing buoy data. For further documentation about features, developing environment, and more, please check out our [web-api](https://github.com/GearyER/WWXS/tree/main/Website/web-api).
+
 ### Web-UI
 Servers as our user interface - users can log-in and view buoy data. For further documentation about features, developing environment, and more, please check out our [web-ui](https://github.com/GearyER/WWXS/tree/main/Website/web-ui).
 
