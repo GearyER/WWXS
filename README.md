@@ -39,9 +39,10 @@ WORK IN PROGRESS
 
 ## Website
 WORK IN PROGRESS
-* What is contained in the folder
-* Features
-* Prerequisites, installation instructions
+### Web-API
+Servers as our backend - updating, creating, and accessing buoy data. For further documentation about features, developing environment, and more, please check out our [web-api](https://github.com/GearyER/WWXS/tree/main/Website/web-api).
+### Web-UI
+Servers as our user interface - users can log-in and view buoy data. For further documentation about features, developing environment, and more, please check out our [web-ui](https://github.com/GearyER/WWXS/tree/main/Website/web-ui).
 
 ## Contribution
 This was previously a revolving door project. New developments have given this project a set endpoint. Future contributions after June 2024 are allowed at the discretion of
