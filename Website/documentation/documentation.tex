@@ -1,0 +1,61 @@
+% Please read README.md on how to edit, deliver, or change the documentation
+
+\documentclass[letterpaper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Hide outline and color of URL and Table of Contents links
+\hypersetup{hidelinks}
+
+% Location of image resources
+\graphicspath{ {./documentation/res/} }
+
+% Document information
+
+\title{Water Weather Stations Documentation}
+\author{
+  Grant Barton \and
+  Jacob DeBoer  \and
+  Karina Sandlin \and
+  Ryan Lingg \and
+  Sara Morimoto \and
+  Daniel Shtunyuk \and
+  Elana Cueto \and
+  Erik Fretheim \and
+  Harry Saliba \and
+  Morgan Stimpson \and
+  Paul Haithcock \and
+  Vipul Kumar \and
+  Alex Wilson \and
+  Jay Hechter \and
+  Douglas Woods \and
+  Jessica Avery
+}
+
+\begin{document}
+  \maketitle
+  \newpage
+  \tableofcontents
+  \newpage
+  % Introduction to the project and this document, elements taken from the most recent Vision and Scope
+  \section{Introduction}
+  % State the purpose of this document
+  \subsection{Purpose}
+  \textbf{This document is not designed to be given to students.} It is for instructors and camp directors to reference to create a curriculum for students. You will find information on how the systems work in detail, and how to diagnose and correct issues. It is recommended that an instructor reads sections of this document such as buoy construction, buoy operation, android app operation, and web app operation.  Then, create a curriculum for the group of students they are instructing based on the material.
+  % Background of the Water Weather Station
+  \subsection{Background}
+  The Weather Water Stations project is an ongoing project with the SEA Discovery Center located in Paulsbo, WA. The projects goal is to educate youth campers on cyber-security, computer science, and electrical engineering. Students take a camp at the SEA Discovery Center and are able to take home a Water Weather Station in a small form factor to take readings of multiple water conditions.
+  % Answer, what is to gain from the use of the Water Weather Stations? No need to go into detail about users and actors, this is most likely not going to be read by a CS Major
+  \subsection{Opportunity}
+  The project offers an educational tool for students that will attend the camp at the SEA Discovery Center. This will give youth an opportunity to learn more about how a system involving hardware, networking, and security to capture sensor data to create meaningful information about the current water conditions. This information is valuable, as it can be used to analyze changes in water conditions in many areas across the region.
+  % Pull in external documentation files
+  \input{documentation/user-guide.tex}
+  \input{documentation/hardware/device-operation.tex}
+  \input{documentation/software/android-app-operation.tex}
+  \input{documentation/software/web-app-operation.tex}
+  \input{documentation/hardware/physical-components.tex}
+  \input{documentation/hardware/device-construction.tex}
+  \input{documentation/software/communication-protocols.tex}
+\end{document}
