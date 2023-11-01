@@ -35,7 +35,7 @@ services:
     networks:
       - frontend
     ports:
-      - "81:80"
+      - "80:80"
     restart: always
 networks:
   frontend:
