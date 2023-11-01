@@ -7,8 +7,11 @@ const group = (sequelize, DataTypes) => {
   });
 
   Group.associate = (models) => {
-    Group.hasMany(models.User);
+    // Group has many Buoys
     Group.hasMany(models.Buoy);
+
+    // Group has many Users
+    Group.hasMany(models.User);
   };
 
   Group.findByName = async (name) => Group.findOne({

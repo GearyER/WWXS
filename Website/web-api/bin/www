@@ -55,6 +55,70 @@ app.post('/data', (req, res) => {
     });
 });
 
+// TODO send data to app
+// NOTE using /buoys for authBuoys MUST SEND groupId in REQUEST
+// NOTE using /buoy-owner for buoy owner to extract email MUST SEND buoyId in REQUEST
+// send buoys by groupId to the app
+// app.get('/buoys', async (req, res) => {
+//   try {
+//     const groupId = req.query; // get groupId from query parameters
+
+//     if (!groupId) {
+//       return res.status(400).send('groupId is required');
+//     }
+//     console.log('Received data from mobile app:', groupId);
+
+//     // find buoys from the database that match the provided groupId
+//     const buoysForGroup = await models.Buoy.findAll({
+//       where: { groupId: groupId }
+//     });
+
+//     res.send(buoysForGroup);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Error fetching buoys');
+//   }
+// });
+
+// send owner of a buoy by buoyId to app
+// app.get('/buoy-owner', async (req, res) => {
+//   try {
+//     const buoyId = req.query; // get buoyId from query parameters
+
+//     if (!buoyId) {
+//       return res.status(400).send('buoyId is required');
+//     }
+//     console.log('Received data from mobile app:', buoyId);
+
+//     // find buoys from the database based on buoyId
+//     const buoy = await models.Buoy.findOne({
+//       where: { id: buoyId }
+//     });
+
+//     if (!buoy) {
+//       return res.status(404).send('Buoy not found');
+//     }
+//     console.log('Buoy found:', buoyId);
+
+//     // find owner from the database based on the buoy's groupId
+//     const ownerUser = await models.User.findOne({
+//       where: { 
+//         groupId: buoy.groupId, 
+//         role: 'owner' 
+//       }
+//     });
+
+//     if (!ownerUser) {
+//       return res.status(404).send('Owner user not found for this buoy');
+//     }
+//     console.log('Owner found:', ownerUser);
+
+//     res.send(ownerUser);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Error fetching owner user');
+//   }
+// });
 
 /**
  * Seed database.

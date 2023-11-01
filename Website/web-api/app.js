@@ -37,6 +37,8 @@ app.use('/group', routes.group);
 app.use('/buoy', routes.buoy);
 app.use('/data', routes.data);
 app.use('/location', routes.location);
+// app.use('/history', routes.history); //TODO create
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -24,7 +24,11 @@ const data = (sequelize, DataTypes) => {
   });
 
   Data.associate = (models) => {
+    // Data belongs to Location
     Data.belongsTo(models.Location);
+
+    // Data belongs to Buoy
+    Data.belongsTo(models.Buoy);
   };
 
   return Data;

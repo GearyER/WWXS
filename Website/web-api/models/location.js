@@ -13,9 +13,12 @@ const location = (sequelize, DataTypes) => {
   });
 
   Location.associate = (models) => {
-    Location.hasMany(models.Buoy);
+    // Location has many Data entries
     Location.hasMany(models.Data);
-  };
+
+    // Location has many Location History entries
+    Location.hasMany(models.LocationHistory);
+  }
 
   return Location;
 };
