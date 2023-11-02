@@ -63,6 +63,39 @@ router.get('/:buoyId/location', async (req, res) => {
   }
 });
 
+/* Get the owner of a buoy */
+router.get('/:buoyId/owner', async (req, res) => {
+  /* Get the buoy from the private key in the URL parameter */
+  req.context.models.Buoy.findByPk(req.params.buoyId)
+    .then((buoy) => {
+      /* Check if the data was null */
+      if (!buoy) {
+        /* Return a 404 error, not found */
+        return res.status(404).json({ message: 'Buoy Not Found' });
+      }
+      /* Find group associated with buoy */
+      buoy.getGroup()
+      .then((group) => {
+        /* Find owner associated with group */
+        group.getUsers({ where: { role: 'owner' } })
+          .then((users) => {
+            /* Validate the buoy owner */
+            if (users.length === 0) {
+              /* Return a 404 error, not found */
+              return res.status(404).json({ message: 'No owner found for the buoy' });
+            }
+            /* Return the owner */
+            return res.status(200).json(users[0]);
+          })
+      })
+    })
+    /* Handle errors */
+    .catch((err) => {
+      console.error(err);
+      return res.status(400).json({ message: 'Bad Request' });
+    });
+});
+
 /* Create a buoy */
 router.post('/', async (req, res) => {
   req.context.models.Buoy.create(req.body)
