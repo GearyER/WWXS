@@ -53,6 +53,31 @@ router.get('/:userId', async (req, res) => {
     });
 });
 
+/* Get a authorized buoys */
+router.get('/:userId/buoys', async (req, res) => {
+  req.context.models.User.findByPk(req.params.userId, {
+    include: req.context.models.Group
+  })
+    .then((user) => {
+      /* Check if the user was null */
+      if (!user) {
+        /* Return a 404 error, not found */
+        return res.status(404).json({ message: 'User Not Found' });
+      }
+      /* Get associated group's buoys */
+      user.group.getBuoys()
+      .then((buoys) => {
+        /* Return the associated buoys */
+        return res.status(200).json(buoys);
+      })
+    })
+    /* Handle errors */
+    .catch((err) => {
+      console.error(err);
+      return res.status(400).json({ message: 'Bad Request' });
+    });
+});
+
 /* Login, returns JWT Token and user info */
 router.post('/login', (req, res, next) => {
   /* Create query */
