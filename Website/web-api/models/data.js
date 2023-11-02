@@ -24,7 +24,8 @@ const data = (sequelize, DataTypes) => {
   });
 
   Data.associate = (models) => {
-    Data.belongsTo(models.Location);
+    // Data.belongsTo(models.Location);
+    Data.belongsTo(models.History);
   };
 
   return Data;

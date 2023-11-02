@@ -9,11 +9,11 @@ router.get('/', async (req, res) => {
   query.where = {};
   query.include = [
     {
-      model: req.context.models.Location
+      model: req.context.models.History
     }
   ]
-  if (req.query.locationId) {
-    query.where.locationId = req.query.locationId
+  if (req.query.historyId) {
+    query.where.historyId = req.query.historyId
   }
   /* begin a SELECT query */
   req.context.models.Data.findAll(query)
@@ -31,7 +31,7 @@ router.get('/:dataId', async (req, res) => {
   const query = {};
   query.include = [
     {
-      model: req.context.models.Location
+      model: req.context.models.History
     }
   ]
   req.context.models.Data.findByPk(req.params.dataId, query)

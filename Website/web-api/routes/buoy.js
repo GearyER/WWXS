@@ -48,6 +48,21 @@ router.get('/:buoyId', async (req, res) => {
     });
 });
 
+/* Get current location of a buoy */
+router.get('/:buoyId/location', async (req, res) => {
+  const buoyId = req.params.buoyId;
+  const locationHistory = await req.context.models.History.findOne({
+    where: { buoyId: buoyId },
+    order: [['createdAt', 'DESC']],
+    include: [req.context.models.Location]
+  });
+  if (locationHistory) {
+    return res.status(200).json(locationHistory.Location);
+  } else {
+    return res.status(404).json({ message: 'Location Not Found for Buoy' });
+  }
+});
+
 /* Get the owner of a buoy */
 router.get('/:buoyId/owner', async (req, res) => {
   /* Get the buoy from the private key in the URL parameter */
@@ -80,7 +95,6 @@ router.get('/:buoyId/owner', async (req, res) => {
       return res.status(400).json({ message: 'Bad Request' });
     });
 });
-
 
 /* Create a buoy */
 router.post('/', async (req, res) => {

@@ -125,7 +125,7 @@ const testData = { // TODO: Associate records
       depthTurbidity: Math.random(),
       locationId: 1
     },
-{
+    {
       timestamp: new Date(new Date().getTime()+(2*24*60*60*1000)),
       surfTemp: Math.random() * 100,
       surfInsolation: Math.random(),
@@ -185,7 +185,29 @@ const testData = { // TODO: Associate records
       depthTurbidity: Math.random(),
       locationId: 2
     }
-  ]
+  ],
+  history: [
+    {
+      buoyId: 1,
+      locationId: 1, 
+      timestamp: new Date(new Date().getTime()-(10*24*60*60*1000))
+    },
+    {
+      buoyId: 1,
+      locationId: 2, 
+      timestamp: new Date(new Date().getTime()-(5*24*60*60*1000))
+    },
+    {
+      buoyId: 2,
+      locationId: 1,
+      timestamp: new Date(new Date().getTime()-(15*24*60*60*1000))
+    },
+    {
+      buoyId: 2,
+      locationId: 2,
+      timestamp: new Date(new Date().getTime()-(7*24*60*60*1000))
+    }
+  ],
 };
 
 module.exports = testData;
