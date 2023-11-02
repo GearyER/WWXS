@@ -88,7 +88,7 @@ const seedDatabase = async (data) => {
   await createUsers(users);
   await createBuoys(buoys);
   await createData(ddata);
-  await createData(history);
+  await createHistory(history);
 };
 
 // create models from data
