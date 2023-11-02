@@ -41,7 +41,7 @@ sequelize.sync(databaseConfig).then(async () => { // TODO: Use sequelize.migrati
   server.on('listening', onListening);
 });
 
-//get data from app
+// get data from app
 app.post('/data', (req, res) => {
   const dataArray = req.body; // Access the array of arrays from the request body
   console.log('Received data from mobile app:', dataArray);
@@ -55,133 +55,61 @@ app.post('/data', (req, res) => {
     });
 });
 
-
 /**
  * Seed database.
- */
-//App data format: Array of arrays in following order: [Group info, Loc info, User info, Buoy info, Data]
-//Group format: name
-//Loc format: name, latitude, longitude
-//User format: username, hashed password, role, groupID
-//Buoy format: name, MAC, groupID, locID
-//Data format: timestamp, surfTemp, surfInsolation, shallowSalinity, shallowTemp, depthTemp, depthTurbidity
-//TODO: remove this comment
+ * Go through sent data and create a new entry
+*/
+
+// parse each entry in sent data
+const parseData = (data, length, fields) => {
+  const result = [];
+  for (let i = 0; i < data.length; i += length) {
+    const obj = {};
+    fields.forEach((field, index) => {
+      obj[field] = data[i + index];
+    });
+    result.push(obj);
+  }
+  return result;
+};
+
+// put each entry into the database  // NOTE this must be sent in order
+// TODO generalize this to get any sent data
 const seedDatabase = async (data) => {
-  const groups = [];
-  const locations = [];
-  const users = [];
-  const buoys = [];
-  const ddata = [];
-  
-  //parse groups
-  for(let i = 0; i < data[0].length; i++){
-    var groupObj = {
-      name: data[0][i]
-    };
-    groups.push(groupObj);
-  }
+  const groups = parseData(data[0], 1, ['name']);
+  const locations = parseData(data[1], 3, ['name', 'latitude', 'longitude']);
+  const users = parseData(data[2], 4, ['username', 'password', 'role', 'groupId']);
+  const buoys = parseData(data[3], 4, ['name', 'mac', 'groupId', 'locationId']);
+  const ddata = parseData(data[4], 7, ['timestamp', 'surfTemp', 'surfInsolation', 'shallowSalinity', 'shallowTemp', 'depthTemp', 'depthTurbidity']);
+  const history = parseData(data[5], 4, ['start', 'end', 'buoyId', 'locationId']);
 
-  //parse locations
-  for(let i = 0; i < data[1].length; i+=3){
-    var locObj = {
-      name: data[1][i],
-      latitude: data[1][i + 1],
-      longitude: data[1][i + 2]
-    };
-    locations.push(locObj);
-  }
-
-  //parse users
-  // TODO: check data is not null
-  for(let i = 0; i < data[2].length; i+=4){
-    var userObj = {
-      username: data[2][i],
-      password: data[2][i + 1],
-      role: data[2][i + 2],
-      groupId: data[2][i + 3]
-    };
-    users.push(userObj);
-  }
-  
-  //parse buoys
-  for (let i = 0; i < data[3].length; i+=4) {
-    var buoyObj = {
-      name: data[3][i],
-      mac: data[3][i + 1],
-      groupId: data[3][i + 2],
-      locationId: data[3][i + 3]
-    };
-    buoys.push(buoyObj);
-  }
-  
-  //parse data
-  for(let i = 0; i < data[4].length; i+=7){
-    var dataObj = {
-      timestamp: data[4][i],
-      surfTemp: data[4][i + 1],
-      surfInsolation: data[4][i + 2],
-      shallowSalinity: data[4][i + 3],
-      shallowTemp: data[4][i + 4],
-      depthTemp: data[4][i + 5],
-      depthTurbidity: data[4][i + 6]
-    };
-    ddata.push(dataObj);
-  }
-  
   await createGroups(groups);
   await createLocations(locations);
   await createUsers(users);
   await createBuoys(buoys);
   await createData(ddata);
+  await createData(history);
 };
 
-// TODO: Figure out a proper way to chain these so they execute synchronously
-// Inserting data must happen in the correct order. A model's dependencies must be inserted first.
-
-const createGroups = (groups) => new Promise((resolve) => {
-  models.Group.bulkCreate(groups).then(() => {
-    resolve();
-  })
+// create models from data
+const createBulk = (model, items) => new Promise((resolve, reject) => {
+  model.bulkCreate(items)
+    .then(() => {
+      resolve();
+    })
     .catch((err) => {
       console.error(err);
+      reject(err);
     });
 });
 
-const createLocations = (locations) => new Promise((resolve) => {
-  models.Location.bulkCreate(locations).then(() => {
-    resolve();
-  })
-    .catch((err) => {
-      console.error(err);
-    });
-});
+const createGroups = (groups) => createBulk(models.Group, groups);
+const createLocations = (locations) => createBulk(models.Location, locations);
+const createUsers = (users) => createBulk(models.User, users);
+const createBuoys = (buoys) => createBulk(models.Buoy, buoys);
+const createData = (data) => createBulk(models.Data, data);
+const createHistory = (history) => createBulk(models.History, history);
 
-const createUsers = (users) => new Promise((resolve) => {
-  models.User.bulkCreate(users).then(() => {
-    resolve();
-  })
-    .catch((err) => {
-      console.error(err);
-    });
-});
-
-const createBuoys = (buoys) => new Promise((resolve) => {
-  models.Buoy.bulkCreate(buoys).then(() => {
-    resolve();
-  })
-    .catch((err) => {
-      console.error(err);
-    });
-});
-
-const createData = (data) => new Promise((resolve) => {
-  models.Data.bulkCreate(data).then(() => {
-    resolve();
-  })
-    .catch((err) => {
-      console.error(err);
-    });
-});
 
 /**
  * Normalize a port into a number, string, or false.

@@ -5,6 +5,7 @@ const group = require('./group');
 const buoy = require('./buoy');
 const data = require('./data');
 const location = require('./location');
+const history = require('./history');
 
 module.exports = {
   render,
@@ -13,5 +14,6 @@ module.exports = {
   group,
   buoy,
   data,
-  location
+  location,
+  history,
 };

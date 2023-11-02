@@ -48,6 +48,21 @@ router.get('/:buoyId', async (req, res) => {
     });
 });
 
+/* Get current location of a buoy */
+router.get('/:buoyId/location', async (req, res) => {
+  const buoyId = req.params.buoyId;
+  const locationHistory = await req.context.models.History.findOne({
+    where: { buoyId: buoyId },
+    order: [['createdAt', 'DESC']],
+    include: [req.context.models.Location]
+  });
+  if (locationHistory) {
+    return res.status(200).json(locationHistory.Location);
+  } else {
+    return res.status(404).json({ message: 'Location Not Found for Buoy' });
+  }
+});
+
 /* Create a buoy */
 router.post('/', async (req, res) => {
   req.context.models.Buoy.create(req.body)

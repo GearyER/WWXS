@@ -23,7 +23,8 @@ const models = {
   User: sequelize.import('./user'),
   Buoy: sequelize.import('./buoy'),
   Location: sequelize.import('./location'),
-  Data: sequelize.import('./data')
+  Data: sequelize.import('./data'),
+  History: sequelize.import('./history'),
 };
 
 Object.keys(models).forEach((key) => {
