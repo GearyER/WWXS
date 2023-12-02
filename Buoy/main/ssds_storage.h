@@ -16,10 +16,11 @@ typedef struct {
     uint16_t temp1;
     uint16_t temp2;
     uint16_t temp3;
-    uint16_t salinity;
+    uint16_t salinity1; //added another salinity
     uint16_t salinity2;
     uint16_t light;
-    uint16_t turbidity;
+    uint16_t turbidity1; //adding another turb
+    uint16_t turbidity2;
 } datapoint_t;
 
 typedef struct {

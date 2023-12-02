@@ -284,11 +284,11 @@ static void ble_data_read(esp_gatt_rsp_t *rsp) {
         case IV_READY: {
             data_buf = get_aes_iv();
 
-            rsp->attr_value.len = 16;
-            memcpy(rsp->attr_value.value, data_buf, 16);
+            rsp->attr_value.len = 20; //Adjusted from 16 to 20
+            memcpy(rsp->attr_value.value, data_buf, 20); //Adjusted from 16 to 20
 
             printf("aes_iv: ");
-            for(int i = 0; i < 16; i++) {
+            for(int i = 0; i < 20; i++) {
                 printf("%02x", data_buf[i]);
             }
             printf("\n");
@@ -324,7 +324,7 @@ static void ble_data_read(esp_gatt_rsp_t *rsp) {
 
             //Store data in rsp. 16 bit ints have to be converted to two 8 bit ints
             //First low order bits then high order bits
-            rsp->attr_value.len = 16;
+            rsp->attr_value.len = 20;
             rsp->attr_value.value[0] = data.tv_sec & 0xff;
             rsp->attr_value.value[1] = (data.tv_sec >> 8) & 0xff;
             rsp->attr_value.value[2] = (data.tv_sec >> 16) & 0xff;
@@ -335,12 +335,18 @@ static void ble_data_read(esp_gatt_rsp_t *rsp) {
             rsp->attr_value.value[7] = (data.temp2 >> 8);
             rsp->attr_value.value[8] = data.temp3 & 0xff;
             rsp->attr_value.value[9] = (data.temp3 >> 8);
-            rsp->attr_value.value[10] = data.salinity & 0xff;
-            rsp->attr_value.value[11] = (data.salinity >> 8);
-            rsp->attr_value.value[12] = data.light & 0xff;
-            rsp->attr_value.value[13] = (data.light >> 8);
-            rsp->attr_value.value[14] = data.turbidity & 0xff;
-            rsp->attr_value.value[15] = (data.turbidity >> 8);
+            rsp->attr_value.value[10] = data.salinity1 & 0xff;  /*ADDED ANOTHER SALINITY*/
+            rsp->attr_value.value[11] = (data.salinity1 >> 8);
+            rsp->attr_value.value[12] = data.salinity2 & 0xff;  /*ADDED ANOTHER SALINITY*/
+            rsp->attr_value.value[13] = (data.salinity2 >> 8);
+            rsp->attr_value.value[14] = data.light & 0xff;
+            rsp->attr_value.value[15] = (data.light >> 8);
+
+            /*TURB2 TESTNG*/
+            rsp->attr_value.value[16] = data.turbidity1 & 0xff;
+            rsp->attr_value.value[17] = (data.turbidity1 >> 8);
+            rsp->attr_value.value[18] = data.turbidity2 & 0xff;
+            rsp->attr_value.value[19] = (data.turbidity2 >> 8);
             // store encrypted datapoint in response
             /*encrypt_block((unsigned char*)&data, 
                           (unsigned char*)rsp->attr_value.value, 

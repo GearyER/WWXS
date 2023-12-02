@@ -138,8 +138,8 @@ void get_next_dp (dp_iterator_t *iterator, datapoint_t *data)
         iterator->curr_offset = iterator->curr_offset + sizeof(datapoint_t);
     }
     else
-    {
-        *data = (datapoint_t){0,0,0,0,0,0,0,0};
+    {   /*TURB2 TESTING*/
+        *data = (datapoint_t){0,0,0,0,0,0,0,0,0};
     }
 }
 
@@ -215,8 +215,10 @@ void print_datapoint(datapoint_t *data)
     printf("\ttemp1: %u\n", data->temp1);
     printf("\ttemp2: %u\n", data->temp2);
     printf("\ttemp3: %u\n", data->temp3);
-    printf("\tsalinity: %u\n", data->salinity);
+    printf("\tsalinity1: %u\n", data->salinity1);
+    printf("\tsalinity2: %u\n", data->salinity2); /*ADDED ANOTHER SALINITY*/
     printf("\tlight: %u\n", data->light);
-    printf("\tturbidity: %u\n", data->turbidity);
+    printf("\tturbidity1: %u\n", data->turbidity1);
+    printf("\tturbidity2: %u\n", data->turbidity2);
     printf("\n");
 }

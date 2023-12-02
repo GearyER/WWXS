@@ -58,7 +58,7 @@ float conductivityConvSalinity(float temp, float cond)
 //This function is to convert voltages from the temperature sensor to Celsius (C).
 float voltagesConvertTemperature(uint32_t volt)
 {
-	return (float)(volt - 500) / 10;
+	return (float)(volt - 500.0)/10.0;
 }
 
 //This function is to make correction to the turbidity to get a more accurate reading.

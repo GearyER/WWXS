@@ -100,7 +100,7 @@ Parameters:
 Return:
 	N/A
 */
-void esp_logi_result(float temp1, float temp2, float temp3, float turbd1, float light1, float salin1);
+void esp_logi_result(float temp1, float temp2, float temp3, float turbd1, float turbd2, float light1, float salin1, float salin2);
 
 
 #endif

@@ -16,6 +16,9 @@
 #define LIGHT1_CHANNEL 		ADC_CHANNEL_4
 #define TURBD1_CHANNEL		ADC_CHANNEL_3
 
+/*TURB2 TESTING*/
+#define TURBD2_CHANNEL 		ADC_CHANNEL_7
+
 #define GPIO_TAG "GPIOW"
 
 static uint8_t adc_configured = 0;
@@ -36,6 +39,9 @@ esp_err_t init_gpio()
 	adc1_config_channel_atten(SALINITY2_CHANNEL, ADC_ATTEN_DB_11);
 	adc1_config_channel_atten(LIGHT1_CHANNEL, ADC_ATTEN_DB_6);
 	adc1_config_channel_atten(TURBD1_CHANNEL, ADC_ATTEN_DB_6);
+
+	/*TURB2 TESTING*/
+	adc1_config_channel_atten(TURBD2_CHANNEL, ADC_ATTEN_DB_6);
 
   adc_configured = 1;
 
@@ -89,6 +95,9 @@ esp_err_t gather_data(datapoint_t* dp)
 	esp_adc_cal_characteristics_t chars_10_dB;
     esp_adc_cal_characterize(ADC_UNIT_1, ADC_WIDTH_10Bit, ADC_WIDTH_BIT_10 , DEFAULT_VREF, &chars_10_dB);
 
+	esp_adc_cal_characteristics_t chars_0_dB;
+    esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_0, SSDS_ADC_WIDTH , DEFAULT_VREF, &chars_0_dB);
+
 	float temp1 = 0;
 	uint32_t temp1_raw = 0;
 	float temp1_reading = 0;
@@ -102,6 +111,12 @@ esp_err_t gather_data(datapoint_t* dp)
 	uint32_t turbd1_raw = 0;
 	float salin1 = 0;
 	float salin2 = 0;
+
+	/*TURB2 TESTING*/
+	float turbd2 = 0;
+	uint32_t turbd2_raw = 0;
+
+	
 
 	for (int i = 0; i < NO_OF_SAMPLES; i++) 
 	{
@@ -121,6 +136,10 @@ esp_err_t gather_data(datapoint_t* dp)
 		turbd1_raw = adc1_get_raw((adc1_channel_t)TURBD1_CHANNEL);
 		turbd1 += get_raw_data_turbidity_convert_to_ntu(chars_6_dB, turbd1_raw);
 
+		/*TURB2 TESTING*/
+		turbd2_raw = adc1_get_raw((adc1_channel_t)TURBD2_CHANNEL);
+		turbd2 += get_raw_data_turbidity_convert_to_ntu(chars_6_dB, turbd2_raw);
+
 		salin1 += get_raw_data_conductivity_convert_to_salinity(chars_11_dB, temp1_reading, 25, (adc1_channel_t)SALINITY1_CHANNEL);
 		salin2 += get_raw_data_conductivity_convert_to_salinity(chars_11_dB, temp1_reading, 23, (adc1_channel_t)SALINITY2_CHANNEL);
 		esp_task_wdt_reset();
@@ -130,17 +149,26 @@ esp_err_t gather_data(datapoint_t* dp)
 	temp2 /= NO_OF_SAMPLES;
 	temp3 /= NO_OF_SAMPLES;
 	salin1 /= NO_OF_SAMPLES;
+	salin2 /= NO_OF_SAMPLES;
 	light1 /= NO_OF_SAMPLES;
 	turbd1 /= NO_OF_SAMPLES;
+
+	/*TURB2 TESTING*/
+	turbd2 /= NO_OF_SAMPLES;
 
 	dp->temp1 = temp1;
 	dp->temp2 = temp2;
 	dp->temp3 = temp3;
-	dp->salinity = salin1;
+	dp->salinity1 = salin1;
+	dp->salinity2 = salin2;
 	dp->light = light1;
-	dp->turbidity = turbd1;
+	dp->turbidity1 = turbd1; //Changed turbidity to turbidity1
 
-	esp_logi_result(temp1, temp2, temp3, turbd1, light1, salin1);
+	/*TURB2 TESTING*/
+	dp->turbidity2 = turbd2;
+
+	/*TURB2 TESTING*/
+	esp_logi_result(temp1, temp2, temp3, turbd1, turbd2, light1, salin1, salin2);
 
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
@@ -166,6 +194,7 @@ float get_raw_data_temp_convert_to_celsius(esp_adc_cal_characteristics_t chars_6
     uint32_t temp_voltage = 0;
 	float temp_reading = 0;
 	temp_voltage = esp_adc_cal_raw_to_voltage(temp_raw, &chars_6_dB);
+
 	temp_reading = voltagesConvertTemperature(temp_voltage);
 	printf("Temp_reading: %f\n", temp_reading);
 	return temp_reading;
@@ -272,7 +301,7 @@ Parameters:
 Return:
 	N/A
 */
-void esp_logi_result(float temp1, float temp2, float temp3, float turbd1, float light1, float salin1)
+void esp_logi_result(float temp1, float temp2, float temp3, float turbd1, float turbd2, float light1, float salin1, float salin2)
 {
 	ESP_LOGI(GPIO_TAG, "temp1: %f", temp1);
     //ESP_LOGI(GPIO_TAG, "temp1_voltage: %f", temp1_voltage);
@@ -280,9 +309,13 @@ void esp_logi_result(float temp1, float temp2, float temp3, float turbd1, float 
     //ESP_LOGI(GPIO_TAG, "temp2_voltage: %f", temp2_voltage);
 	ESP_LOGI(GPIO_TAG, "temp3: %f", temp3);
     //ESP_LOGI(GPIO_TAG, "temp3_voltage: %f", temp3_voltage);
-	ESP_LOGI(GPIO_TAG, "Salinity: %f", salin1);
+	ESP_LOGI(GPIO_TAG, "Salinity1: %f", salin1);
+	ESP_LOGI(GPIO_TAG, "Salinity2: %f", salin2);
     //ESP_LOGI(GPIO_TAG, "Light_raw: %d", light_raw);
 	ESP_LOGI(GPIO_TAG, "Light: %f", light1);
     //ESP_LOGI(GPIO_TAG, "Light_voltage: %f", light_voltage);
-	ESP_LOGI(GPIO_TAG, "Turbidity: %f", turbd1);	
+	ESP_LOGI(GPIO_TAG, "Turbidity1: %f", turbd1);
+
+	/*TURB2 TESTING*/
+	ESP_LOGI(GPIO_TAG, "Turbidity2: %f", turbd2);	
 }
