@@ -38,7 +38,6 @@ WORK IN PROGRESS
 * Prerequisites, installation instructions
 
 ## Website
-WORK IN PROGRESS
 
 ### Documentation
 Servers as our website documentation - contains docker information for pushing our website. For further documentation, please check out our [Website/documentation](https://github.com/GearyER/WWXS/tree/main/Website/documentation).
