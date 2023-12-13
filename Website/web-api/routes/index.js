@@ -6,6 +6,8 @@ const buoy = require('./buoy');
 const data = require('./data');
 const location = require('./location');
 const history = require('./history');
+const manager = require('./manager');
+const authorized = require('./authorized');
 
 module.exports = {
   render,
@@ -16,4 +18,6 @@ module.exports = {
   data,
   location,
   history,
+  manager,
+  authorized,
 };

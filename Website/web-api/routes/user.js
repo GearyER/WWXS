@@ -12,6 +12,9 @@ router.get('/', authorize, async (req, res) => {
   query.include = [
     {
       model: req.context.models.Group
+    },
+    {
+      model: req.context.models.Buoy
     }
   ]
   req.context.models.User.findAll(query)
@@ -32,6 +35,9 @@ router.get('/:userId', async (req, res) => {
   query.include = [
     {
       model: req.context.models.Group
+    },
+    {
+      model: req.context.models.Buoy
     }
   ]
   req.context.models.User.findByPk(req.params.userId, query)
@@ -53,25 +59,58 @@ router.get('/:userId', async (req, res) => {
     });
 });
 
-/* Get a authorized buoys */
-router.get('/:userId/buoys', async (req, res) => {
-  req.context.models.User.findByPk(req.params.userId, {
-    include: req.context.models.Group
-  })
-    .then((user) => {
-      /* Check if the user was null */
-      if (!user) {
-        /* Return a 404 error, not found */
+/* TODO 
+ * send and receive hashed usernames
+ * This may contain sensitive information which should not be sent
+ * as an API request
+*/
+/* Get buoys owned and managed by a specific user based on username */
+router.get('/:username/buoys', async (req, res) => {
+  const userQuery = {};
+  userQuery.where = { username: req.params.username };
+  userQuery.include = [
+    {
+      model: req.context.models.Buoy
+    }
+  ] // For owned buoys
+
+  req.context.models.User.findOne(userQuery)
+    .then(async (user) => {
+      if (user) {
+        const managerQuery = {};
+        managerQuery.where = { userId: user.id };
+        managerQuery.include = [
+          {
+            model: req.context.models.Buoy
+          }
+        ] // For managed buoys
+        const authorizedQuery = {};
+        authorizedQuery.where = { userId: user.id };
+        authorizedQuery.include = [
+          {
+            model: req.context.models.Buoy
+          }
+        ] // For authorized buoys
+
+        const managers = await req.context.models.Manager.findAll(managerQuery);
+        const managedBuoys = managers.map(manager => manager.buoy);
+
+        const authUsers = await req.context.models.Authorized.findAll(authorizedQuery);
+        const authorizedBuoys = authUsers.map(authUser => authUser.buoy);
+
+        // Combine owned and managed and authorized buoys
+        // const allBuoys = [...user.buoys, ...managedBuoys, ...authorizedBuoys];
+
+        return res.status(200).json({
+          ownedBuoys: user.buoys,
+          managedBuoys: managedBuoys,
+          authorizedBuoys: authorizedBuoys,
+          // allBuoys: allBuoys
+        });
+      } else {
         return res.status(404).json({ message: 'User Not Found' });
       }
-      /* Get associated group's buoys */
-      user.group.getBuoys()
-      .then((buoys) => {
-        /* Return the associated buoys */
-        return res.status(200).json(buoys);
-      })
     })
-    /* Handle errors */
     .catch((err) => {
       console.error(err);
       return res.status(400).json({ message: 'Bad Request' });
@@ -124,7 +163,7 @@ router.post('/', async (req, res) => {
       model: req.context.models.Group
     }
   ]
-  req.context.models.User.create(req.body, query)
+  req.context.models.User.bulkCreate(req.body, query)
     /* Successful insert */
     .then((user) => {
       user.dataValues.token = authenticate.createToken();

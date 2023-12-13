@@ -12,10 +12,11 @@ const location = (sequelize, DataTypes) => {
     }
   });
 
-  // Location.associate = (models) => {
-  //   Location.hasMany(models.Buoy);
-  //   Location.hasMany(models.Data);
-  // };
+  Location.associate = (models) => {
+    Location.hasMany(models.Buoy);
+    Location.hasMany(models.Data);
+    // Location.belongsTo(models.History);
+  };
 
   return Location;
 };

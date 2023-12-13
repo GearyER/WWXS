@@ -103,23 +103,6 @@ router.post('/', async(req, res) => {
     }
   };
 
-  // Add buoy at a location
-  router.post('/:locId/addBuoy/:buoyId', async (req, res) => {
-    const locId = req.params.locId;
-    const buoyId = req.params.buoyId;
-
-    const newHistory = await req.context.models.History.create({
-      buoyId: buoyId,
-      locationId: locId
-    });
-    if (newHistory) {
-      return res.status(201).json(newHistory);
-    } else {
-      return res.status(400).json({ message: 'Failed to log buoy at location' });
-    }
-  });
-
-
   req.context.models.Location.findAll(query)
     /* Return the JSON array */
     .then((locations) => {
@@ -134,7 +117,7 @@ router.post('/', async(req, res) => {
     });
 
 
-  req.context.models.Location.create(req.body)
+  req.context.models.Location.bulkCreate(req.body)
     .then((location) => res.status(201).json(location))
     .catch((err) => {
       console.error(err);

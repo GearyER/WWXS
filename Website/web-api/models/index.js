@@ -25,6 +25,8 @@ const models = {
   Location: sequelize.import('./location'),
   Data: sequelize.import('./data'),
   History: sequelize.import('./history'),
+  Manager: sequelize.import('./manager'),
+  Authorized: sequelize.import('./authorized'),
 };
 
 Object.keys(models).forEach((key) => {

@@ -32,6 +32,8 @@ const user = (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     User.belongsTo(models.Group);
+    User.hasMany(models.Buoy);
+    // User.belongsTo(models.Manager);
   };
 
   User.findByLogin = async (username) => User.findOne({

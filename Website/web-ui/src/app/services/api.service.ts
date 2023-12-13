@@ -1,18 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private readonly apiEnpoint = "http://localhost:8080";
-  private readonly buoyApiEndpoint = this.apiEnpoint + "/buoy"
-  private readonly dataApiEndpoint = this.apiEnpoint + "/data"
-  private readonly groupApiEndpoint = this.apiEnpoint + "/group"
-  private readonly userApiEndpoint = this.apiEnpoint + "/user"
+  private readonly buoyApiEndpoint = this.getApiEndpoint() + "/buoy"
+  private readonly dataApiEndpoint = this.getApiEndpoint() + "/data"
+  private readonly groupApiEndpoint = this.getApiEndpoint() + "/group"
+  private readonly userApiEndpoint = this.getApiEndpoint() + "/user"
   private readonly userLoginApiEndpoint = this.userApiEndpoint + "/login"
+
+  private getApiEndpoint(): string {
+    if (!environment.production) {
+      console.log("http://localhost:8080");
+      return "http://localhost:8080"
+    }
+    console.log("http://172.24.25.205:8080");
+    return "http://172.24.25.205:8080"
+  }
 
 
   public getBouy(id?: number): Observable<any> {

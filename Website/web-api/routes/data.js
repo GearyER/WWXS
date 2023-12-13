@@ -9,11 +9,11 @@ router.get('/', async (req, res) => {
   query.where = {};
   query.include = [
     {
-      model: req.context.models.History
+      model: req.context.models.Location
     }
   ]
-  if (req.query.historyId) {
-    query.where.historyId = req.query.historyId
+  if (req.query.locationId) {
+    query.where.locationId = req.query.locationId
   }
   /* begin a SELECT query */
   req.context.models.Data.findAll(query)
@@ -31,7 +31,7 @@ router.get('/:dataId', async (req, res) => {
   const query = {};
   query.include = [
     {
-      model: req.context.models.History
+      model: req.context.models.Location
     }
   ]
   req.context.models.Data.findByPk(req.params.dataId, query)
@@ -55,7 +55,7 @@ router.get('/:dataId', async (req, res) => {
 
 /* Create a new data record */
 router.post('/', async (req, res) => {
-  req.context.models.Data.create(req.body)
+  req.context.models.Data.bulkCreate(req.body)
     /* Successful insert */
     .then((data) => res.status(201).json(data))
     /* Handle Errors */

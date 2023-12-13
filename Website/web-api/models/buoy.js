@@ -17,12 +17,25 @@ const buoy = (sequelize, DataTypes) => {
     },
     version: {
       type: DataTypes.STRING
+    },
+    password: { // TODO: Don't use plaintext password
+      type: DataTypes.STRING
+    },
+  },
+  {
+    defaultScope: {
+      attributes: { exclude: ['password'] }
     }
-  });
+  }
+  );
 
   Buoy.associate = (models) => {
     Buoy.belongsTo(models.Location);
     Buoy.belongsTo(models.Group);
+    Buoy.belongsTo(models.User); // owner
+    // Buoy.belongsTo(models.History);
+    // Buoy.belongsTo(models.Manager);
+    // Buoy.belongsTo(models.Authorized);
   };
 
   return Buoy;

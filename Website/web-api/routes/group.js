@@ -38,7 +38,7 @@ router.get('/:groupId', async (req, res) => {
 
 /* Create a group */
 router.post('/', async (req, res) => {
-  req.context.models.Group.create(req.body)
+  req.context.models.Group.bulkCreate(req.body)
     /* Successful insert */
     .then((group) => res.status(201).json(group))
     /* Handle Errors */

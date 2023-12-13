@@ -23,7 +23,7 @@ export class DataComponent implements OnInit {
       this.data = data;
       console.log("filling unsorted data from data.component.ts")
       console.log(data);
-      console.log("lolz, done filling in data array");
+      console.log("completed filling in data array");
     })
   }
 }

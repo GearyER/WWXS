@@ -33,83 +33,102 @@ const server = http.createServer(app);
  */
 
 sequelize.sync(databaseConfig).then(async () => { // TODO: Use sequelize.migration() instead
-  // if (databaseConfig.force) {
-  //   await seedDatabase(testData);
-  // }
+  if (databaseConfig.force) {
+    await seedDatabase(testData);
+  }
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);
 });
 
-// get data from app
-app.post('/data', (req, res) => {
-  const dataArray = req.body; // Access the array of arrays from the request body
-  console.log('Received data from mobile app:', dataArray);
-
-  // Process the data and send a response back to the mobile app
-  seedDatabase(dataArray)
-    .then(() => res.send('Data received and processed successfully'))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error processing data');
-    });
-});
-
 /**
  * Seed database.
- * Go through sent data and create a new entry
-*/
-
-// parse each entry in sent data
-const parseData = (data, length, fields) => {
-  const result = [];
-  for (let i = 0; i < data.length; i += length) {
-    const obj = {};
-    fields.forEach((field, index) => {
-      obj[field] = data[i + index];
-    });
-    result.push(obj);
-  }
-  return result;
-};
-
-// put each entry into the database  // NOTE this must be sent in order
-// TODO generalize this to get any sent data
+ */
 const seedDatabase = async (data) => {
-  const groups = parseData(data[0], 1, ['name']);
-  const locations = parseData(data[1], 3, ['name', 'latitude', 'longitude']);
-  const users = parseData(data[2], 4, ['username', 'password', 'role', 'groupId']);
-  const buoys = parseData(data[3], 4, ['name', 'mac', 'groupId', 'locationId']);
-  const ddata = parseData(data[4], 7, ['timestamp', 'surfTemp', 'surfInsolation', 'shallowSalinity', 'shallowTemp', 'depthTemp', 'depthTurbidity']);
-  const history = parseData(data[5], 4, ['start', 'end', 'buoyId', 'locationId']);
-
-  await createGroups(groups);
-  await createLocations(locations);
-  await createUsers(users);
-  await createBuoys(buoys);
-  await createData(ddata);
-  await createHistory(history);
+  await createGroups(data.groups);
+  await createLocations(data.locations);
+  await createUsers(data.users);
+  await createBuoys(data.buoys);
+  await createData(data.data);
+  await createHistory(data.history);
+  await createManagers(data.managers);
+  await createAuthorized(data.authorized);
 };
 
-// create models from data
-const createBulk = (model, items) => new Promise((resolve, reject) => {
-  model.bulkCreate(items)
-    .then(() => {
-      resolve();
-    })
+// TODO: Figure out a proper way to chain these so they execute synchronously
+// Inserting data must happen in the correct order. A model's dependencies must be inserted first.
+
+const createGroups = (groups) => new Promise((resolve) => {
+  models.Group.bulkCreate(groups).then(() => {
+    resolve();
+  })
     .catch((err) => {
       console.error(err);
-      reject(err);
     });
 });
 
-const createGroups = (groups) => createBulk(models.Group, groups);
-const createLocations = (locations) => createBulk(models.Location, locations);
-const createUsers = (users) => createBulk(models.User, users);
-const createBuoys = (buoys) => createBulk(models.Buoy, buoys);
-const createData = (data) => createBulk(models.Data, data);
-const createHistory = (history) => createBulk(models.History, history);
+const createLocations = (locations) => new Promise((resolve) => {
+  models.Location.bulkCreate(locations).then(() => {
+    resolve();
+  })
+    .catch((err) => {
+      console.error(err);
+    });
+});
 
+const createUsers = (users) => new Promise((resolve) => {
+  models.User.bulkCreate(users).then(() => {
+    resolve();
+  })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+const createBuoys = (buoys) => new Promise((resolve) => {
+  models.Buoy.bulkCreate(buoys).then(() => {
+    resolve();
+  })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+const createData = (data) => new Promise((resolve) => {
+  models.Data.bulkCreate(data).then(() => {
+    resolve();
+  })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+const createHistory = (history) => new Promise((resolve) => {
+  models.History.bulkCreate(history).then(() => {
+    resolve();
+  })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+const createManagers = (managers) => new Promise((resolve) => {
+  models.Manager.bulkCreate(managers).then(() => {
+    resolve();
+  })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+const createAuthorized = (authorized) => new Promise((resolve) => {
+  models.Authorized.bulkCreate(authorized).then(() => {
+    resolve();
+  })
+    .catch((err) => {
+      console.error(err);
+    });
+});
 
 /**
  * Normalize a port into a number, string, or false.

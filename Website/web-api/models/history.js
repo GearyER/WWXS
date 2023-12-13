@@ -1,17 +1,13 @@
 const history = (sequelize, DataTypes) => {
   const History = sequelize.define('history', {
-    startDate: {
+    timestamp: {
       type: DataTypes.DATE
-    },
-    endDate: {
-      type: DataTypes.DATE
-    },
+    }
   });
 
   History.associate = (models) => {
-    History.belongsTo(models.Buoy);
     History.belongsTo(models.Location);
-    History.hasMany(models.Data);
+    History.belongsTo(models.Buoy);
   };
 
   return History;
