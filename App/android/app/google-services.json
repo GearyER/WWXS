@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "383011860590",
+    "project_id": "wwx-water-weather-stations",
+    "storage_bucket": "wwx-water-weather-stations.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383011860590:android:ecd10104c10f3d4f7b367f",
+        "android_client_info": {
+          "package_name": "com.wwx.buoy_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383011860590-n7scos72aqb8os906trhea76d7a1uupn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3H9bPMrJjc36Ngo8StRV-iDQ2w4cdYfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "383011860590-n7scos72aqb8os906trhea76d7a1uupn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
