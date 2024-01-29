@@ -1,0 +1,42 @@
+.home {
+    margin: auto;
+    width: 75% !important; 
+    color: #fff;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 100;
+    font-size: 1.1em;   
+    padding-top: 2.5em;
+}
+.home h3 {
+    text-align: center;
+}
+.home-info {
+    border: 2px solid #fff;
+    padding: 1rem;
+}
+.home-info-top-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+.home-info-middle{
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+}
+.home-info-middle > * {
+    text-align: right;
+}
+.home-info-top-bottom > * {
+    text-align: left;
+}
+img {
+    height: 200px;
+}
+.text-block {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+.computer-img{
+    filter: brightness(0) invert();
+}

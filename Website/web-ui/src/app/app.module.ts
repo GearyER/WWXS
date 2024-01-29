@@ -15,7 +15,6 @@ import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DataComponent } from './data/data.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AboutComponent } from './about/about.component';
 import { GroupComponent } from './group/group.component';
 import { BuoysComponent } from './buoys/buoys.component';
 import { LineGraphComponent } from './line-graph/line-graph.component';
@@ -45,7 +44,6 @@ import { AuthService } from "./services/auth.service";
     PageNotFoundComponent,
     DataComponent,
     ProfileComponent,
-    AboutComponent,
     GroupComponent,
     BuoysComponent,
     LineGraphComponent,
