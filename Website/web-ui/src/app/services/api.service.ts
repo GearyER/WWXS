@@ -16,11 +16,11 @@ export class ApiService {
 
   private getApiEndpoint(): string {
     if (!environment.production) {
-      console.log("http://localhost:8080");
-      return "http://localhost:8080"
+      console.log("https://localhost:8080");
+      return "https://localhost:8080"
     }
-    console.log("http://172.24.25.205:8080");
-    return "http://172.24.25.205:8080"
+    console.log("https://172.24.25.205:8080");
+    return "https://172.24.25.205:8080"
   }
 
 
